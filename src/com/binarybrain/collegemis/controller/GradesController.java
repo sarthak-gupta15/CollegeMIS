@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class GradesController {
 
-    static StudentController studentController = new StudentController();
+//    static StudentController studentController = new StudentController();
 
     static Scanner scNum = new Scanner(System.in);
     static Scanner scStr = new Scanner(System.in);
@@ -25,7 +25,7 @@ public class GradesController {
    public void createFeesRecord(int studentId )
     {
         int id=0;
-        if(!studentController.checkStudentId(studentId))
+        if(true)
         {
             System.out.println("Student Id is not valid");
             return;

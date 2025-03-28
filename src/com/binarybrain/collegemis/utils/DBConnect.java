@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnect {
+
+
     static Connection con = null;
-    static public void connectDB()
+    static public Connection connectDB()
     {
 
         try {
@@ -18,7 +20,11 @@ public class DBConnect {
         {
             e.printStackTrace();
         }
-        if(con!= null) System.out.println("connection build successfully");
+        if(con!= null) {
+            System.out.println("connection build successfully");
+            return con;
+        }
+        return null;
     }
     public void createtempTable()
     {

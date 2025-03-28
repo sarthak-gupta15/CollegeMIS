@@ -5,12 +5,20 @@ import com.binarybrain.collegemis.model.Student;
 import com.binarybrain.collegemis.utils.Gender;
 import com.binarybrain.collegemis.utils.Status;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class StudentController {
+
+    public StudentController(Connection con)
+    {
+        createStudentTable(con);
+    }
      Student student = new Student(1,"Pranay", 23, "BCA", 1616, 2020,(Status.ACTIVE),(Gender.MALE), LocalDate.of(2020,02,15));
 
      Scanner scStr = new Scanner(System.in);
@@ -95,4 +103,32 @@ public class StudentController {
          }
          return false;
      }
+
+     public void createStudentTable(Connection con)
+     {
+         try {
+             Statement query = con.createStatement();
+             String createStudentTableQuery = "create table if not exists student (id serial primary key, " +
+                     "name varchar, " +
+                     "rollNo int, " +
+                     "mob varchar(10), " +
+                     "branch varchar, " +
+                     "gender varchar, " +
+                     "status varchar, " +
+                     "year_of_completion date, " +
+                     "Date_of_addmission date)";
+//             String createStudentTableQuery1 = "CREATE TABLE employees (\n" +
+//                     "    id SERIAL PRIMARY KEY,\n" +
+//                     "    name VARCHAR(50),\n" +
+//                     "    birthdate DATE\n" +
+//                     ");";
+             boolean flag = query.execute(createStudentTableQuery);
+             System.out.println("flag "+flag);
+             System.out.println("student table created successfully");
+         } catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+
+     }
+
 }
