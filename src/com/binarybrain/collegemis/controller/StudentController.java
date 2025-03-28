@@ -6,6 +6,7 @@ import com.binarybrain.collegemis.utils.Gender;
 import com.binarybrain.collegemis.utils.Status;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -19,17 +20,11 @@ public class StudentController {
     {
         createStudentTable(con);
     }
-     Student student = new Student(1,"Pranay", 23, "BCA", 1616, 2020,(Status.ACTIVE),(Gender.MALE), LocalDate.of(2020,02,15));
 
      Scanner scStr = new Scanner(System.in);
      Scanner scNum = new Scanner(System.in);
-     FeesController feesController = new FeesController();
-     static Student[] arr = {(new Student(1,"Pranay", 23, "BCA", 1616, 2020,(Status.ACTIVE),(Gender.MALE), LocalDate.of(2020,02,15)))};
-     int[] num = {1,5,6,7};
 
-     public static ArrayList<Student> studentsData = new ArrayList<>(Arrays.asList(arr));
-
-     public Student createStudentRecord()
+     public void createStudentRecord(Connection con)
      {
          System.out.println("enter a id");
          int id = scNum.nextInt();
@@ -83,13 +78,9 @@ public class StudentController {
          String dateStr = scStr.nextLine();
          String[] array = dateStr.split("-");
          LocalDate date = LocalDate.of((Integer.parseInt(array[0])), (Integer.parseInt(array[1])), (Integer.parseInt(array[2])));
-         Fees fees = feesController.createFeesRecord(id);
-         Student student = new Student(id, name,roll, branch, mob,yoc, status, gender, date);
-         System.out.println("student "+student);
-         System.out.println("fees "+fees);
-         System.out.println("student has been created successully\n");
-         studentsData.add(student);
-         return student;
+
+         PreparedStatement query = con.prepareStatement("");
+
      }
 
      boolean checkStudentId(int studentId)
