@@ -21,20 +21,20 @@ public class RunnerClass {
 
 
 
-//       while(true)
-//       {
+       while(true)
+       {
 //
-//           System.out.println("1. Create the record for the student");
+           System.out.println("1. Create the record for the student");
 //           System.out.println("2. Pay fees with Student Id");
 //           System.out.println("3. Print Database");
 //           System.out.println("4. Add Grades with Student Id");
-//           System.out.println("5. Exit");
-//           System.out.println("enter the option number");
-//           int choice = scNum.nextInt();
-//           switch (choice){
-//               case 1:
-//                   studentController.createStudentRecord();
-//                   break;
+           System.out.println("2. Exit");
+           System.out.println("enter the option number");
+           int choice = scNum.nextInt();
+           switch (choice){
+               case 1:
+                   studentController.createStudentRecord(con);
+                   break;
 //               case 2:
 //                   System.out.println("enter student id ");
 //                   int studentId = scNum.nextInt();
@@ -70,13 +70,13 @@ public class RunnerClass {
 //                          int studentId1 = scNum.nextInt();
 //                          gradesController.createFeesRecord(studentId1);
 //                   break;
-//                    case 5:
-//                   System.out.println("Exiting...");
-//                   System.exit(0);
+                    case 2:
+                   System.out.println("Exiting...");
+                   System.exit(0);
 //
-//               default:
-//                   System.out.println("Please Select from above given otion only");
-//           }
-//       }
+               default:
+                   System.out.println("Please Select from above given option only");
+           }
+       }
     }
 }

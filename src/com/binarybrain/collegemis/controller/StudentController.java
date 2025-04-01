@@ -26,8 +26,6 @@ public class StudentController {
 
      public void createStudentRecord(Connection con)
      {
-         System.out.println("enter a id");
-         int id = scNum.nextInt();
          System.out.println("enter name of student");
          String name = scStr.nextLine();
          System.out.println("enter roll number");
@@ -35,9 +33,7 @@ public class StudentController {
          System.out.println("enter branch");
          String branch = scStr.nextLine();
          System.out.println("enter mob no. ");
-         int mob = scNum.nextInt();
-         System.out.println("enter the year of completion");
-         int yoc = scNum.nextInt();
+         String mob = scStr.nextLine();
          System.out.println("enter the status of student (Active / inActive / Completed)");
          String statusStr = scStr.nextLine();
          statusStr = statusStr.toUpperCase();
@@ -79,21 +75,45 @@ public class StudentController {
          String[] array = dateStr.split("-");
          LocalDate date = LocalDate.of((Integer.parseInt(array[0])), (Integer.parseInt(array[1])), (Integer.parseInt(array[2])));
 
-         PreparedStatement query = con.prepareStatement("");
+         try {
+             PreparedStatement query = con.prepareStatement("insert into student (name, rollNo, mob, branch, gender, status, Date_of_addmission) values(?,?,?,?,?,?,?)");
 
-     }
+//             parameter positioning
+             query.setString(1, name);
 
-     boolean checkStudentId(int studentId)
-     {
-         for (Student Student : studentsData)
-         {
-             if(student.getId() == studentId)
+                query.setString(3, mob);
+                query.setString(4, branch);
+                query.setString(5 , genderStr);
+                query.setString(6, statusStr);
+                query.setDate(7, java.sql.Date.valueOf(date));
+                query.setInt(2, roll);
+
+             if(query.executeUpdate()>0)
              {
-                 return true;
+                 System.out.println("*************************student record created successfully*************************");
              }
+             else
+             {
+                 System.out.println("*************************student record not created*************************");
+             }
+
+         } catch (SQLException e) {
+             throw new RuntimeException(e);
          }
-         return false;
+
      }
+
+//     boolean checkStudentId(int studentId)
+//     {
+//         for (Student Student : studentsData)
+//         {
+//             if(student.getId() == studentId)
+//             {
+//                 return true;
+//             }
+//         }
+//         return false;
+//     }
 
      public void createStudentTable(Connection con)
      {
