@@ -18,28 +18,27 @@ public class RunnerClass {
 
         Connection con = DBConnect.connectDB();
         StudentController studentController  = new StudentController(con);
-
+        FeesController feesController = new FeesController(con);
 
 
        while(true)
        {
 //
            System.out.println("1. Create the record for the student");
-//           System.out.println("2. Pay fees with Student Id");
+           System.out.println("2. Create fees record with Student Id");
 //           System.out.println("3. Print Database");
 //           System.out.println("4. Add Grades with Student Id");
-           System.out.println("2. Exit");
+           System.out.println("3. Exit");
            System.out.println("enter the option number");
            int choice = scNum.nextInt();
            switch (choice){
                case 1:
                    studentController.createStudentRecord(con);
                    break;
-//               case 2:
-//                   System.out.println("enter student id ");
-//                   int studentId = scNum.nextInt();
-//                   feesController.updateFeesRecord(studentId);
-//                  break;
+               case 2:
+
+                   feesController.createFeesRecord();
+                  break;
 //                   case 3:
 //                       System.out.println("enter the database you want to print (Student , fees, Grades)");
 //                       String input = scStr.nextLine();
@@ -70,7 +69,7 @@ public class RunnerClass {
 //                          int studentId1 = scNum.nextInt();
 //                          gradesController.createFeesRecord(studentId1);
 //                   break;
-                    case 2:
+                    case 3:
                    System.out.println("Exiting...");
                    System.exit(0);
 //
