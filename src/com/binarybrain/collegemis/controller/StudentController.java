@@ -5,10 +5,7 @@ import com.binarybrain.collegemis.model.Student;
 import com.binarybrain.collegemis.utils.Gender;
 import com.binarybrain.collegemis.utils.Status;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,8 +13,10 @@ import java.util.Scanner;
 
 public class StudentController {
 
+    Connection con = null;
     public StudentController(Connection con)
     {
+        this.con = con;
         createStudentTable(con);
     }
 
@@ -137,6 +136,30 @@ public class StudentController {
              System.out.println("flag "+flag);
              System.out.println("student table created successfully");
          } catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+
+     }
+
+     public void printDB()
+     {
+         try{
+             String sql = "select * from student";
+             PreparedStatement preparedStatement = con.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery();
+//             System.out.println("resultSet "+resultSet.toString());
+             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+             int count = resultSetMetaData.getColumnCount();
+             System.out.println("column 1 name "+ resultSetMetaData.getColumnName(1));
+             while(resultSet.next())
+             {
+             for(int i =1; i<=count; i++)
+             {
+                 System.out.println(resultSetMetaData.getColumnName(i)+" : "+resultSet.getString(i));
+             }
+             }
+
+         }catch(SQLException e) {
              throw new RuntimeException(e);
          }
 
