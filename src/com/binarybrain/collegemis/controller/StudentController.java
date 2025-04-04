@@ -4,6 +4,7 @@ import com.binarybrain.collegemis.model.Fees;
 import com.binarybrain.collegemis.model.Student;
 import com.binarybrain.collegemis.utils.Gender;
 import com.binarybrain.collegemis.utils.Status;
+import com.binarybrain.collegemis.utils.Utils;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -11,11 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class StudentController {
+public class StudentController extends Utils {
 
     Connection con = null;
     public StudentController(Connection con)
     {
+        super(con);
         this.con = con;
         createStudentTable(con);
     }
@@ -141,28 +143,6 @@ public class StudentController {
 
      }
 
-     public void printDB()
-     {
-         try{
-             String sql = "select * from student";
-             PreparedStatement preparedStatement = con.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery();
-//             System.out.println("resultSet "+resultSet.toString());
-             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-             int count = resultSetMetaData.getColumnCount();
-             System.out.println("column 1 name "+ resultSetMetaData.getColumnName(1));
-             while(resultSet.next())
-             {
-             for(int i =1; i<=count; i++)
-             {
-                 System.out.println(resultSetMetaData.getColumnName(i)+" : "+resultSet.getString(i));
-             }
-             }
 
-         }catch(SQLException e) {
-             throw new RuntimeException(e);
-         }
-
-     }
 
 }

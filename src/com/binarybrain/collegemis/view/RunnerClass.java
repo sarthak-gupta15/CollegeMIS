@@ -27,8 +27,9 @@ public class RunnerClass {
            System.out.println("1. Create the record for the student");
            System.out.println("2. Create fees record with Student Id");
            System.out.println("3. Print Database");
+           System.out.println("4. Update fees by student id");
 //           System.out.println("4. Add Grades with Student Id");
-           System.out.println("4. Exit");
+           System.out.println("5. Exit");
            System.out.println("enter the option number");
            int choice = scNum.nextInt();
            switch (choice){
@@ -47,12 +48,12 @@ public class RunnerClass {
                        {
                            case "STUDENT":
                                System.out.println("\nbelow is the students data \n");
-                               studentController.printDB();
+                               studentController.printDB(input);
                                System.out.println("successfully fetch all student data....\n");
                                break;
                                case "FEES":
                                    System.out.println("\nbelow is the students fees data \n");
-                                   System.out.println(FeesController.feesData);
+                                    feesController.printDB(input);
                                    System.out.println("successfully fetch all student fees data....\n");
                                break;
                                case "GRADES":
@@ -64,12 +65,17 @@ public class RunnerClass {
                        }
 
                    break;
+                   case 4:
+                        System.out.println("enter student id ");
+                          int studentId1 = scNum.nextInt();
+                          feesController.updateFeesByStudentId(studentId1);
+                   break;
 //                   case 4:
 //                        System.out.println("enter student id ");
 //                          int studentId1 = scNum.nextInt();
 //                          gradesController.createFeesRecord(studentId1);
 //                   break;
-                    case 4:
+                    case 5:
                    System.out.println("Exiting...");
                    System.exit(0);
 //

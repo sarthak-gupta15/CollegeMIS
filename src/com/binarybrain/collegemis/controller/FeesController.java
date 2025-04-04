@@ -1,6 +1,7 @@
 package com.binarybrain.collegemis.controller;
 
 import com.binarybrain.collegemis.model.Fees;
+import com.binarybrain.collegemis.utils.Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,23 +10,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class FeesController {
+public class FeesController extends Utils {
 
     static Scanner scNum = new Scanner(System.in);
     Connection con = null;
 public FeesController(Connection con)
 {
+    super(con);
     this.con = con;
     createFeesTable(con);
 }
 
-    public static ArrayList<Fees> feesData = new ArrayList<>(Arrays.asList(
-            new Fees[]
-            {
-                    (new Fees(1, 1, 50000, 2000, 48000))
-            } // array
-            ) // method aslist
-    );// arraylist constructor
+
     public void createFeesRecord()
     {
         System.out.println("enter student Id: ");
@@ -50,36 +46,22 @@ public FeesController(Connection con)
         }
     }
 
-    public void updateFeesRecord(int studentId)
+    public void updateFeesByStudentId(int studentId)
     {
-        boolean flag = true;
-        System.out.println("enter the amount you will pay ");
-        int amountToBePaid = scNum.nextInt();
+        System.out.println("enter the amout you want to pay");
+        int paidFees = scNum.nextInt();
+       String sqlQuery = "update fees set paidFees = paidFees+ ? , unPaidFees = unPaidFees - ? where studentId = ?";
 
-        for (Fees i : feesData)
-        {
-            if(i.getStudentId() == studentId)
-            {
-                System.out.println("previous fees " + i);
-                int paidFees =  i.getPaidFees();
-                int totalFees = i.getTotalFees();
-
-                paidFees += amountToBePaid;
-
-                int unpaid = totalFees -paidFees;
-
-                i.setPaidFees(paidFees);
-                i.setUnPaidFees(unpaid);
-                System.out.println("Updated fees " + i);
-                flag = false;
-            }
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement("update fees set paidFees = paidFees+ ? , unPaidFees = unPaidFees - ? where studentId = ?");
+            preparedStatement.setInt(1,paidFees);
+            preparedStatement.setInt(2,paidFees);
+            preparedStatement.setInt(3,studentId);
+            preparedStatement.executeUpdate();
+            System.out.println("fees updated.....");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
-        if(flag)
-        {
-            System.out.println("invalid student id");
-        }
-
 
     }
 
