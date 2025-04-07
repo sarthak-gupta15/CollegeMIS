@@ -53,7 +53,8 @@ public FeesController(Connection con)
        String sqlQuery = "update fees set paidFees = paidFees+ ? , unPaidFees = unPaidFees - ? where studentId = ?";
 
         try {
-            PreparedStatement preparedStatement = con.prepareStatement("update fees set paidFees = paidFees+ ? , unPaidFees = unPaidFees - ? where studentId = ?");
+//            PreparedStatement preparedStatement = con.prepareStatement("update fees set paidFees = paidFees+ ? , unPaidFees = unPaidFees - ? where studentId = ?");
+            PreparedStatement preparedStatement = con.prepareStatement(sqlQuery);
             preparedStatement.setInt(1,paidFees);
             preparedStatement.setInt(2,paidFees);
             preparedStatement.setInt(3,studentId);

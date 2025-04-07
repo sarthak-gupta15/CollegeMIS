@@ -1,7 +1,6 @@
 package com.binarybrain.collegemis.view;
 
 import com.binarybrain.collegemis.controller.FeesController;
-import com.binarybrain.collegemis.controller.GradesController;
 import com.binarybrain.collegemis.controller.StudentController;
 import com.binarybrain.collegemis.utils.DBConnect;
 
@@ -19,6 +18,7 @@ public class RunnerClass {
         Connection con = DBConnect.connectDB();
         StudentController studentController  = new StudentController(con);
         FeesController feesController = new FeesController(con);
+        TeacherController teacherController = new TeacherController(con);
 
 
        while(true)
@@ -28,8 +28,8 @@ public class RunnerClass {
            System.out.println("2. Create fees record with Student Id");
            System.out.println("3. Print Database");
            System.out.println("4. Update fees by student id");
-//           System.out.println("4. Add Grades with Student Id");
-           System.out.println("5. Exit");
+           System.out.println("5. Create teacher Record");
+           System.out.println("6. Exit");
            System.out.println("enter the option number");
            int choice = scNum.nextInt();
            switch (choice){
@@ -41,7 +41,7 @@ public class RunnerClass {
                    feesController.createFeesRecord();
                   break;
                    case 3:
-                       System.out.println("enter the database you want to print (Student , fees, Grades)");
+                       System.out.println("enter the database you want to print (Student , fees, teacher, Grades)");
                        String input = scStr.nextLine();
                        input = input.toUpperCase();
                        switch (input)
@@ -56,9 +56,9 @@ public class RunnerClass {
                                     feesController.printDB(input);
                                    System.out.println("successfully fetch all student fees data....\n");
                                break;
-                               case "GRADES":
-                                   System.out.println("\nbelow is the students grades data \n");
-                                   System.out.println(GradesController.gradesData);
+                               case "TEACHER":
+                                   System.out.println("\nbelow is the All Teacher data \n");
+                                   teacherController.printDB(input);
                                    System.out.println("successfully fetch all student grades data....\n");
                            default:
                                System.out.println("please select valid input");
@@ -70,12 +70,10 @@ public class RunnerClass {
                           int studentId1 = scNum.nextInt();
                           feesController.updateFeesByStudentId(studentId1);
                    break;
-//                   case 4:
-//                        System.out.println("enter student id ");
-//                          int studentId1 = scNum.nextInt();
-//                          gradesController.createFeesRecord(studentId1);
-//                   break;
-                    case 5:
+                   case 5:
+                        teacherController.createTeacherRecord();
+                   break;
+                    case 6:
                    System.out.println("Exiting...");
                    System.exit(0);
 //
