@@ -1,19 +1,26 @@
 package com.binarybrain.collegemis.controller;
 
 import com.binarybrain.collegemis.model.Grades;
-import com.binarybrain.collegemis.utils.Exam_Type;
-import com.binarybrain.collegemis.utils.Gender;
-import com.binarybrain.collegemis.utils.Semester;
-import com.binarybrain.collegemis.utils.Year;
+import com.binarybrain.collegemis.utils.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class GradesController {
+public class GradesController extends Utils {
 
 //    static StudentController studentController = new StudentController();
-
+    public GradesController(Connection con)
+    {
+        super(con);
+        this.con = con;
+        createGradesTable();
+    }
+    Connection con = null;
     static Scanner scNum = new Scanner(System.in);
     static Scanner scStr = new Scanner(System.in);
      static Grades grades = new Grades(1,1, Year.FIRST, Semester.SECOND, Exam_Type.REGULAR, 100, 75);
@@ -107,8 +114,30 @@ public class GradesController {
         System.out.println("enter the marks obtained");
         int obtainedMarks = scNum.nextInt();
 
-        Grades grades = new Grades(studentId,(id*10+studentId) , year, semester, examType, totalMarks, obtainedMarks);
-        gradesData.add(grades);
-        System.out.println("Grades Added Successfully\n");
+        try {
+
+            String Query = "Create table if not exists grades (id serial primary key, StudentId int, examtype varchar, yearStudying varchar, semester varchar, totalMarks int, obtainMarks float, foreign key(StudentId) references student(id))";
+            PreparedStatement preparedStatement = con.prepareStatement(Query);
+
+            preparedStatement.executeUpdate();
+            System.out.println("Grades Record Inserted Succesfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createGradesTable()
+    {
+        try {
+
+            String Query = "Create table if not exists grades (id serial primary key, StudentId int, examtype varchar, yearStudying varchar, semester varchar, totalMarks int, obtainMarks float, foreign key(StudentId) references student(id))";
+            PreparedStatement preparedStatement = con.prepareStatement(Query);
+            preparedStatement.executeUpdate();
+            System.out.println("Grades table created Succesfully");
+
+        } catch (SQLException e) {
+           e.printStackTrace();
+        }
     }
 }

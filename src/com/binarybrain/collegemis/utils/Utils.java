@@ -31,13 +31,19 @@ public class Utils {
             System.out.println("row number "+rowcount);
 //            resultSet.first();
 
-            System.out.println("column 1 name "+ resultSetMetaData.getColumnName(1));
-            while(resultSet.next())
+            if(rowcount != 0)
             {
-                for(int i =1; i<=count; i++)
+//                System.out.println("column 1 name "+ resultSetMetaData.getColumnName(1));
+                while(resultSet.next())
                 {
-                    System.out.println(resultSetMetaData.getColumnName(i)+" : "+resultSet.getString(i));
+                    for(int i =1; i<=count; i++)
+                    {
+                        System.out.println(resultSetMetaData.getColumnName(i)+" : "+resultSet.getString(i));
+                    }
                 }
+            }
+            else {
+                System.out.println("The Data is Not Found for your "+tableName+" table");
             }
 
         }catch(SQLException e) {
