@@ -14,7 +14,7 @@ public class DBConnect {
     {
 
         try {
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/collegeMIS_BB", "postgres", "pranay");
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/collegeMIS_bb", "postgres", "pranayss");
 
         }catch (Exception e)
         {
