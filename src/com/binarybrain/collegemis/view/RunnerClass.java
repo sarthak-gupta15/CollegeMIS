@@ -2,6 +2,7 @@ package com.binarybrain.collegemis.view;
 
 import com.binarybrain.collegemis.controller.FeesController;
 import com.binarybrain.collegemis.controller.StudentController;
+import com.binarybrain.collegemis.controller.TeacherController;
 import com.binarybrain.collegemis.utils.DBConnect;
 
 import java.sql.Connection;
@@ -19,7 +20,6 @@ public class RunnerClass {
         StudentController studentController  = new StudentController(con);
         FeesController feesController = new FeesController(con);
         TeacherController teacherController = new TeacherController(con);
-
 
        while(true)
        {
