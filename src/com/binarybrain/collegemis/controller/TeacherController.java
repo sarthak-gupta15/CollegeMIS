@@ -45,14 +45,19 @@ public class TeacherController extends Utils
 
         System.out.println("Enter years of experience:");
         int experience = scNum.nextInt();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Branch :");
+        String branch = "";
+        branch = sc.nextLine();
 
         try {
             PreparedStatement query = con.prepareStatement(
-                    "insert into teacher (name, gender, date_of_joining, experience) VALUES (?, ?, ?, ?)");
+                    "insert into teacher (name, gender, date_of_joining, experience, branch) VALUES (?, ?, ?, ?,?)");
             query.setString(1, name);
             query.setString(2, genderStr);
             query.setDate(3, java.sql.Date.valueOf(dateOfJoining));
             query.setInt(4, experience);
+            query.setString(5, branch);
 
             if (query.executeUpdate() > 0) {
                 System.out.println("Teacher record created successfully**** ");
@@ -72,7 +77,8 @@ public class TeacherController extends Utils
                     "name VARCHAR, " +
                     "gender VARCHAR, " +
                     "date_of_joining DATE, " +
-                    "experience INT)");
+                    "experience INT," +
+                    "branch varchar )");
 
             query.execute(createTeacherTableQuery);
             System.out.println("Teacher table created successfully");

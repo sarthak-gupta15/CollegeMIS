@@ -116,11 +116,19 @@ public class GradesController extends Utils {
 
         try {
 
-            String Query = "Create table if not exists grades (id serial primary key, StudentId int, examtype varchar, yearStudying varchar, semester varchar, totalMarks int, obtainMarks float, foreign key(StudentId) references student(id))";
-            PreparedStatement preparedStatement = con.prepareStatement(Query);
+            PreparedStatement Query = con.prepareStatement ( "insert into grades (StudentId, examtype, yearStudying, semester, totalMarks, obtainedMarks) values (?, ?, ?, ?, ?, ?)");
+            Query.setInt(1, studentId);
+            Query.setString(2, examTypeInput);
+            Query.setString(3, yearInput);
+            Query.setString(4, semesterInput);
+            Query.setInt(5, totalMarks);
+            Query.setFloat(6, obtainedMarks);
 
-            preparedStatement.executeUpdate();
-            System.out.println("Grades Record Inserted Succesfully");
+            if (Query.executeUpdate() > 0) {
+                System.out.println("****Grades record created successfully**** ");
+            } else {
+                System.out.println("**** Grades record not created *****");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
